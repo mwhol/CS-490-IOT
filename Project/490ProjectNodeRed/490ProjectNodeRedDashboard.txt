@@ -1,0 +1,540 @@
+[
+    {
+        "id": "a5ea58f5.a391f8",
+        "type": "tab",
+        "label": "Dashboard",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9f3c9e06.9bb3",
+        "type": "ui_button",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "dddb46a5.651018",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Light On",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "41094fb2.9fc09"
+            ]
+        ]
+    },
+    {
+        "id": "c81bdedb.2d9",
+        "type": "ui_chart",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "451d9d9f.356614",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3b360866.3479c8",
+        "type": "serial in",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "serial": "b5ea4d7f.e6272",
+        "x": 90,
+        "y": 200,
+        "wires": [
+            [
+                "49e853c5.569cdc"
+            ]
+        ]
+    },
+    {
+        "id": "49e853c5.569cdc",
+        "type": "function",
+        "z": "a5ea58f5.a391f8",
+        "name": "Comma Tester",
+        "func": "var payload = msg.payload;\nif (payload.includes(\",\")) {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "9838a514.bf9cd8"
+            ]
+        ]
+    },
+    {
+        "id": "9838a514.bf9cd8",
+        "type": "function",
+        "z": "a5ea58f5.a391f8",
+        "name": "Splitting Output",
+        "func": "var valueArr = msg.payload.split(',');\nmsg.payload = valueArr[0];\nvar msg2 = { payload:valueArr[1] };\nvar msg3 = { payload:valueArr[2] };\nvar msg4 = { payload:valueArr[3] };\nvar msg5 = { payload:valueArr[4] };\nreturn [msg, msg2, msg3, msg4, msg5];",
+        "outputs": 5,
+        "noerr": 0,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "16d66e8f.097b11"
+            ],
+            [
+                "c81bdedb.2d9"
+            ],
+            [
+                "b3b216e2.27c988"
+            ],
+            [
+                "1847017b.2e100f"
+            ],
+            [
+                "45baeddd.59a484"
+            ]
+        ]
+    },
+    {
+        "id": "16d66e8f.097b11",
+        "type": "ui_chart",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "451d9d9f.356614",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b3b216e2.27c988",
+        "type": "ui_chart",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "8c087749.664d38",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Light",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#eeee00",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1847017b.2e100f",
+        "type": "ui_chart",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "8c087749.664d38",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "UltraViolet",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "45baeddd.59a484",
+        "type": "ui_chart",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "451d9d9f.356614",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Soil Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#804000",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f878ebd4.ba7f38",
+        "type": "ui_button",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "dddb46a5.651018",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Light Off",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 140,
+        "y": 420,
+        "wires": [
+            [
+                "429bfed9.f36b5"
+            ]
+        ]
+    },
+    {
+        "id": "1717baed.deae75",
+        "type": "ui_button",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "dddb46a5.651018",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Fan On",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "57fcc8f5.850d88"
+            ]
+        ]
+    },
+    {
+        "id": "2476af55.c5296",
+        "type": "ui_button",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "group": "dddb46a5.651018",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Fan Off",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "6f09a5da.7a946c"
+            ]
+        ]
+    },
+    {
+        "id": "41094fb2.9fc09",
+        "type": "function",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "func": "msg.payload = \"L1;\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 380,
+        "wires": [
+            [
+                "390c4df6.06ff52"
+            ]
+        ]
+    },
+    {
+        "id": "6f09a5da.7a946c",
+        "type": "function",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "func": "msg.payload = \"F0;\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 500,
+        "wires": [
+            [
+                "4f9b49d1.764078"
+            ]
+        ]
+    },
+    {
+        "id": "429bfed9.f36b5",
+        "type": "function",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "func": "msg.payload = \"L0;\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 420,
+        "wires": [
+            [
+                "5a78bd3e.9137e4"
+            ]
+        ]
+    },
+    {
+        "id": "57fcc8f5.850d88",
+        "type": "function",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "func": "msg.payload = \"F1;\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 460,
+        "wires": [
+            [
+                "fd814ae5.965be8"
+            ]
+        ]
+    },
+    {
+        "id": "390c4df6.06ff52",
+        "type": "serial out",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "serial": "b5ea4d7f.e6272",
+        "x": 480,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "fd814ae5.965be8",
+        "type": "serial out",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "serial": "b5ea4d7f.e6272",
+        "x": 480,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5a78bd3e.9137e4",
+        "type": "serial out",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "serial": "b5ea4d7f.e6272",
+        "x": 480,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4f9b49d1.764078",
+        "type": "serial out",
+        "z": "a5ea58f5.a391f8",
+        "name": "",
+        "serial": "b5ea4d7f.e6272",
+        "x": 480,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "dddb46a5.651018",
+        "type": "ui_group",
+        "z": "",
+        "name": "Buttons",
+        "tab": "29ab3f2.d3d28c",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "451d9d9f.356614",
+        "type": "ui_group",
+        "z": "",
+        "name": "Charts",
+        "tab": "29ab3f2.d3d28c",
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "b5ea4d7f.e6272",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "8c087749.664d38",
+        "type": "ui_group",
+        "z": "",
+        "name": "Charts 2",
+        "tab": "29ab3f2.d3d28c",
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "29ab3f2.d3d28c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

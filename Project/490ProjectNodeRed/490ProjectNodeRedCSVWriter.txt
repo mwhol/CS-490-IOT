@@ -1,0 +1,70 @@
+[
+    {
+        "id": "bd63b10a.bbc6f",
+        "type": "tab",
+        "label": "Arduino Receive and Write",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6b81d452.8d5f6c",
+        "type": "file",
+        "z": "bd63b10a.bbc6f",
+        "name": "CSV Write",
+        "filename": "/home/pi/490data.csv",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "x": 530,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8840d556.a14e18",
+        "type": "serial in",
+        "z": "bd63b10a.bbc6f",
+        "name": "",
+        "serial": "b5ea4d7f.e6272",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "68774a82.c1b344"
+            ]
+        ]
+    },
+    {
+        "id": "68774a82.c1b344",
+        "type": "function",
+        "z": "bd63b10a.bbc6f",
+        "name": "Comma Tester",
+        "func": "var payload = msg.payload;\nif (payload.includes(\",\")) {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "6b81d452.8d5f6c"
+            ]
+        ]
+    },
+    {
+        "id": "b5ea4d7f.e6272",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    }
+]
